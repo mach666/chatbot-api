@@ -6,12 +6,16 @@ import { Messages } from 'openai/resources/beta/threads/messages';
 
 @Injectable()
 export class OpenaiService {
-    constructor(private readonly openai : OpenAI) {}
+    private context = ''
+    constructor(private readonly openai : OpenAI,) {}
 
     async createChatCompletion(message: chatCompletionMessageDto[]){
-        return this.openai.chat.completions.create({
+        message[0].content = `${this.context} \n ${message[0].content}`
+        const response =await this.openai.chat.completions.create({
             messages: message as ChatCompletionMessageParam[],
             model: 'gpt-3.5-turbo'
         })
+        this.context = `${message[0].content} \n ${response.choices[0].message.content}`
+        return response.choices[0].message
     }
 }
