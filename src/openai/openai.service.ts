@@ -12,7 +12,7 @@ export class OpenaiService {
         message[0].content = `${this.context} \n ${message[0].content}`
         const response =await this.openai.chat.completions.create({
             messages: message as ChatCompletionMessageParam[],
-            model: 'gpt-3.5-turbo'
+            model: 'gpt-4-turbo'
         })
         this.context = `${message[0].content} \n ${response.choices[0].message.content}`
         return response.choices[0].message
