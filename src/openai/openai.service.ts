@@ -5,6 +5,7 @@ import {ChatCompletionMessageParam} from 'openai/resources'
 
 @Injectable()
 export class OpenaiService {
+    //TODO add Memory
     private context = ''
     constructor(private readonly openai : OpenAI,) {}
 
